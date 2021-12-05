@@ -92,6 +92,6 @@ class _GameViewState extends State<GameView> {
                 ),
               ],
             ),
-            bottomNavigationBar: bottom));
+            bottomNavigationBar: bottom(context)));
   }
 }

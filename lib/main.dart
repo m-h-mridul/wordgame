@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:wordgame/home/view/home.dart';
+import 'package:wordgame/setting/view/settingui.dart';
 
 import 'game/view/game_view.dart';
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       routes: {
       MyHomePage.name:(context)=>MyHomePage(),
       GameView.name: (context) => GameView(),
+      SettingUi.name: (context) => SettingUi(),
       }
     );
   }

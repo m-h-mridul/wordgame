@@ -12,6 +12,7 @@ import '../../Them.dart';
 
 class SettingUi extends StatelessWidget {
   SettingUi({Key? key}) : super(key: key);
+  static String name = 'Setting';
   SettingController settingcontroller = Get.put(SettingController());
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,10 @@ class SettingUi extends StatelessWidget {
                       'Language ( ${settingcontroller.language_change.value})'),
                   trailing: CircleAvatar(
                     backgroundColor: Colors.green,
-                    child: Obx(()=>
-                       Text(settingcontroller.language_change.value.substring(0,2),
+                    child: Obx(
+                      () => Text(
+                          settingcontroller.language_change.value
+                              .substring(0, 2),
                           style: TextStyle(color: Colors.white)),
                     ),
                   ),
@@ -125,10 +128,11 @@ class SettingUi extends StatelessWidget {
                   leading: Icon(Icons.menu_book, color: Colors.blue),
                   title: Text('Number of Word Columns'),
                   trailing: CircleAvatar(
-                    backgroundColor: Colors.green,
-                    child:Obx(()=> Text(settingcontroller.number_of_column.value,
-                        style: TextStyle(color: Colors.white)),)
-                  ),
+                      backgroundColor: Colors.green,
+                      child: Obx(
+                        () => Text(settingcontroller.number_of_column.value,
+                            style: TextStyle(color: Colors.white)),
+                      )),
                 ),
               ),
             ),
