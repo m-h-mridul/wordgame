@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:wordgame/setting/controller/settingcontroller.dart';
-import 'package:wordgame/setting/view/settingui.dart';
 
 SettingController settingController = Get.find();
 showAlertDialog(BuildContext context, String langage) {

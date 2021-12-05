@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:wordgame/home/component/hintalert.dart';
 import 'package:wordgame/setting/view/settingui.dart';
 
+import 'backbuttonalert.dart';
+
 Widget bottom(BuildContext context) => BottomNavigationBar(
         backgroundColor: Colors.green,
         type: BottomNavigationBarType.fixed,
@@ -15,9 +17,14 @@ Widget bottom(BuildContext context) => BottomNavigationBar(
               icon: CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 20.0,
-                child: Icon(
-                  Icons.pause_outlined,
-                  color: Colors.green,
+                child: InkWell(
+                  onTap: (){
+                    backbutton_dialog(context);
+                  },
+                  child: Icon(
+                    Icons.pause_outlined,
+                    color: Colors.green,
+                  ),
                 ),
               ),
               label: '',

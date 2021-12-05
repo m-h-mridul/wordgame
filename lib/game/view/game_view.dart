@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:wordgame/game/component/appbar.dart';
+import 'package:wordgame/game/component/backbuttonalert.dart';
 import 'package:wordgame/game/component/bottomnavigationbar.dart';
 import 'package:wordgame/game/component/selectedWidget.dart';
 import 'package:wordgame/game/controller/methodcontroller.dart';
@@ -40,58 +41,82 @@ class _GameViewState extends State<GameView> {
   Widget build(BuildContext context) {
     // for cheak selecting item
     final isSelected = controller.value.isSelecting;
-    return SafeArea(
-        child: Scaffold(
-            backgroundColor: Colors.white,
-            appBar: appbar(),
-            body: Column(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Obx(() => GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4,
-                              childAspectRatio: 6,
-                              crossAxisSpacing: 0,
-                              mainAxisSpacing: 0),
-                      itemCount: wordgenerate.randomword.value.length,
-                      itemBuilder: (context, index) => Center(
-                            child: Text(wordgenerate.randomword.value[index]),
-                          ))),
-                ),
-                Divider(height: 4, color: Colors.black),
-                Expanded(
-                  flex: 2,
-                  child: Obx(
-                    () => DragSelectGridView(
-                      gridController: controller,
-                      padding: const EdgeInsets.all(0),
-                      itemCount: wordgenerate.randomword.value.length,
-                      itemBuilder: (context, index, selected) {
-                        return GridTile(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.black, width: 0.5)),
-                            child: SelectableItemWidget(
-                              isSelected: selected,
-                              character: wordgenerate.randomword.value[index],
+    return WillPopScope(
+      onWillPop: () async {
+        bool willLeave = false;
+        backbutton_dialog(context);
+        // show the confirm dialog
+        // await showDialog(
+        //     context: context,
+        //     builder: (_) => AlertDialog(
+        //           title: Text('Are you sure want to leave?'),
+        //           actions: [
+        //             ElevatedButton(
+        //                 onPressed: () {
+        //                   willLeave = false;
+        //                   Navigator.of(context).pop();
+        //                 },
+        //                 child: Text('Yes')),
+        //             TextButton(
+        //                 onPressed: () => Navigator.of(context).pop(),
+        //                 child: Text('No'))
+        //           ],
+        //         ));
+        return willLeave;
+      },
+      child: SafeArea(
+          child: Scaffold(
+              backgroundColor: Colors.white,
+              appBar: appbar(),
+              body: Column(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Obx(() => GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 4,
+                                childAspectRatio: 6,
+                                crossAxisSpacing: 0,
+                                mainAxisSpacing: 0),
+                        itemCount: wordgenerate.randomword.value.length,
+                        itemBuilder: (context, index) => Center(
+                              child: Text(wordgenerate.randomword.value[index]),
+                            ))),
+                  ),
+                  Divider(height: 4, color: Colors.black),
+                  Expanded(
+                    flex: 2,
+                    child: Obx(
+                      () => DragSelectGridView(
+                        gridController: controller,
+                        padding: const EdgeInsets.all(0),
+                        itemCount: wordgenerate.randomword.value.length,
+                        itemBuilder: (context, index, selected) {
+                          return GridTile(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black, width: 0.5)),
+                              child: SelectableItemWidget(
+                                isSelected: selected,
+                                character: wordgenerate.randomword.value[index],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: 3 / 2,
-                        crossAxisCount: 4,
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 0,
+                          );
+                        },
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 3 / 2,
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 0,
+                          mainAxisSpacing: 0,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            bottomNavigationBar: bottom(context)));
+                ],
+              ),
+              bottomNavigationBar: bottom(context))),
+    );
   }
 }
